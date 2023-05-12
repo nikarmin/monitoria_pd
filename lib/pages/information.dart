@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:monitoria_pd/model/monitor.dart';
 
 class DetailPage extends StatelessWidget {
@@ -7,27 +10,47 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var parser = EmojiParser();
+    var nerd = Emoji('nerd', '🤓');
+    var emojiNerd = parser.info('nerd');
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(users.nome),
-      ),
+          title: Text.rich(
+        TextSpan(
+          children: [
+            TextSpan(text: 'Monitor '),
+            TextSpan(text: users.nome + " "),
+            TextSpan(text: '🤓')
+          ],
+        ),
+      )
+          //title: Text("Monitor " + users.nome),
+          ),
       body: userDetail(),
     );
   }
 
   userDetail() {
     return Container(
-      padding: EdgeInsets.all(32),
+      padding: EdgeInsets.all(30),
       child: ListTile(
         title: Text(
           users.nome,
           style: TextStyle(fontWeight: FontWeight.w500),
         ),
         subtitle: Text(users.horarios),
-        trailing: Text(users.horarios),
+        trailing: Text("Curso: " + users.curso,
+            style: TextStyle(fontWeight: FontWeight.w500)),
         leading: Image.network(
-            'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.moneytimes.com.br%2Fminions-2-a-origem-de-gru-dispara-em-bilheteria-nos-eua-neste-fim-de-semana%2F&psig=AOvVaw175YhpxrwyXrhHrzElKqYK&ust=1683988766272000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCMD7n5OB8P4CFQAAAAAdAAAAABAD'),
+          users.imagem,
+          // fit: BoxFit.fill,
+          // height: 200,
+          // width: 200,
+          // alignment: Alignment.center,
+        ),
       ),
+      // )
     );
   }
 }

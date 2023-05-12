@@ -65,7 +65,7 @@ class _BuildListViewState extends State {
                 users[index].nome,
                 style: TextStyle(fontSize: 20, color: Colors.black),
               ),
-              subtitle: Text(users[index].email),
+              subtitle: Text("Email: " + users[index].email),
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return DetailPage(users[index]);
