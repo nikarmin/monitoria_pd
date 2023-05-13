@@ -1,6 +1,10 @@
 import 'dart:convert';
+import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:monitoria_pd/api/api_connect.dart';
 
 import 'model/monitor.dart';
@@ -16,7 +20,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Horários MONITORIA DPD',
-      theme: ThemeData(primarySwatch: Colors.deepPurple),
       home: BuildListView(),
     );
   }
@@ -54,10 +57,24 @@ class _BuildListViewState extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("MONITORIA DPD"),
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        centerTitle: true,
+        elevation: 0,
+        title: Text(
+          "Monitoria de Processamento de Dados",
+          style: GoogleFonts.poppins(
+              letterSpacing: 1.5, fontSize: 30, color: Colors.black),
+          textAlign: TextAlign.center,
         ),
-        body: ListView.builder(
+        backgroundColor: Colors.transparent,
+      ),
+      backgroundColor: Color.fromARGB(255, 230, 230, 230),
+      body: ClipRRect(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(50), bottomLeft: Radius.circular(50)),
+        child: ListView.builder(
+          padding: EdgeInsets.only(top: 80),
           itemCount: users.length,
           itemBuilder: (context, index) {
             return ListTile(
@@ -66,6 +83,10 @@ class _BuildListViewState extends State {
                 style: TextStyle(fontSize: 20, color: Colors.black),
               ),
               subtitle: Text("Email: " + users[index].email),
+              leading: Icon(
+                Icons.person_outlined,
+                color: Colors.black,
+              ),
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return DetailPage(users[index]);
@@ -73,6 +94,8 @@ class _BuildListViewState extends State {
               },
             );
           },
-        ));
+        ),
+      ),
+    );
   }
 }

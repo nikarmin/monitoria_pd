@@ -37,6 +37,9 @@ dependencies:
   http: ^0.13.5
   flutter_emoji: ">= 2.0.0"
   emoji_picker_flutter: ^1.5.4
+  fluttericon: ^2.0.0
+  font_awesome_flutter: ^10.4.0
+  google_fonts: ^4.0.4
 
 dev_dependencies:
   flutter_test:

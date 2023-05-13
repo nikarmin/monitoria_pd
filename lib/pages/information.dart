@@ -15,39 +15,59 @@ class DetailPage extends StatelessWidget {
     var emojiNerd = parser.info('nerd');
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
+          elevation: 0,
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
           title: Text.rich(
-        TextSpan(
-          children: [
-            TextSpan(text: 'Monitor '),
-            TextSpan(text: users.nome + " "),
-            TextSpan(text: '🤓')
-          ],
-        ),
-      )
-          //title: Text("Monitor " + users.nome),
+            TextSpan(
+              children: [
+                TextSpan(
+                    text: 'Monitor ', style: TextStyle(color: Colors.black)),
+                TextSpan(
+                    text: users.nome + " ",
+                    style: TextStyle(color: Colors.black)),
+                TextSpan(text: '🤓')
+              ],
+            ),
           ),
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            //title: Text("Monitor " + users.nome),
+          )),
       body: userDetail(),
     );
   }
 
   userDetail() {
     return Container(
-      padding: EdgeInsets.all(30),
+      padding: EdgeInsets.only(top: 80),
       child: ListTile(
+        visualDensity: VisualDensity(vertical: 4),
         title: Text(
           users.nome,
           style: TextStyle(fontWeight: FontWeight.w500),
         ),
+        contentPadding: EdgeInsets.all(30),
         subtitle: Text(users.horarios),
         trailing: Text("Curso: " + users.curso,
             style: TextStyle(fontWeight: FontWeight.w500)),
-        leading: Image.network(
-          users.imagem,
-          // fit: BoxFit.fill,
-          // height: 200,
-          // width: 200,
-          // alignment: Alignment.center,
+        leading: ClipRRect(
+          borderRadius: BorderRadius.circular(50.0),
+          child: Image.network(
+            users.imagem,
+            fit: BoxFit.fill,
+            height: 200,
+            width: 90,
+            //alignment: Alignment.center,
+          ),
         ),
       ),
       // )
