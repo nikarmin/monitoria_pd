@@ -1,10 +1,6 @@
 import 'dart:convert';
-import 'dart:html';
 
 import 'package:flutter/material.dart';
-import 'package:fluttericon/font_awesome_icons.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:monitoria_pd/api/api_connect.dart';
 
 import 'model/monitor.dart';
@@ -19,7 +15,8 @@ class MyApp extends StatelessWidget {
   Widget build(Object context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Horários MONITORIA DPD',
+      title: 'Horários Monitoria',
+      theme: ThemeData(primarySwatch: Colors.deepPurple),
       home: BuildListView(),
     );
   }
@@ -57,36 +54,38 @@ class _BuildListViewState extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        centerTitle: true,
-        elevation: 0,
-        title: Text(
-          "Monitoria de Processamento de Dados",
-          style: GoogleFonts.poppins(
-              letterSpacing: 1.5, fontSize: 30, color: Colors.black),
-          textAlign: TextAlign.center,
+        appBar: AppBar(
+          title: Text('Horários monitoria',
+              style: TextStyle(
+                  fontSize: 25,
+                  letterSpacing: 3,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  shadows: [
+                    Shadow(
+                        blurRadius: 10.0,
+                        // color of the shadow
+                        color: Color.fromARGB(193, 0, 0, 0)),
+                    // color and font size of the text
+                  ])),
+          toolbarHeight: 80,
+          backgroundColor: Color.fromARGB(255, 177, 41, 63),
         ),
-        backgroundColor: Colors.transparent,
-      ),
-      backgroundColor: Color.fromARGB(255, 230, 230, 230),
-      body: ClipRRect(
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(50), bottomLeft: Radius.circular(50)),
-        child: ListView.builder(
-          padding: EdgeInsets.only(top: 80),
+        body: ListView.builder(
           itemCount: users.length,
           itemBuilder: (context, index) {
             return ListTile(
+              contentPadding: EdgeInsets.all(5),
+              leading: Icon(
+                Icons.arrow_forward_ios_rounded,
+                color: Colors.black,
+              ),
               title: Text(
                 users[index].nome,
                 style: TextStyle(fontSize: 20, color: Colors.black),
               ),
               subtitle: Text("Email: " + users[index].email),
-              leading: Icon(
-                Icons.person_outlined,
-                color: Colors.black,
-              ),
+              hoverColor: Color.fromARGB(15, 177, 41, 64),
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return DetailPage(users[index]);
@@ -94,8 +93,6 @@ class _BuildListViewState extends State {
               },
             );
           },
-        ),
-      ),
-    );
+        ));
   }
 }
